@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
-
+import { LoginFormComponent } from './users/components/login-form/login-form.component';
+ 
 export const routes: Routes = [
   {
     path: '',
-    //component: LoginComponent,
+    component: LoginFormComponent,
   },
   {
     path: '',
