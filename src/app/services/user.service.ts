@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs'
 import { UserData } from '../interfaces/users/user-data';
 import { UserUpdate } from '../interfaces/users/user-update';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private errors: string[] = [];
-  private baseUrl = "http://localhost:5225/api/user";
+  private baseUrl = environment.apiUrl + "/user";
   constructor(private http: HttpClient) { }
   // Add the get all users (Admin only) method
   async getUsers(pageNumber: number): Promise<UserData> {

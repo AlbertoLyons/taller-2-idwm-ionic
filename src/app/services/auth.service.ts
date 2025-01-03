@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   login(credentials: LoginDto): Observable<Auth> {
-    return this.http.post<Auth>(`${this.baseUrl}/auth/login`, credentials).pipe(
+    return this.http.post<Auth>(`${this.baseUrl}/Auth/login`, credentials).pipe(
       map((auth) => {
         this.handleSuccessfulAuth(auth);
         return auth;
