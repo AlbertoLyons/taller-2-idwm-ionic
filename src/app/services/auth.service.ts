@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Auth } from '../interfaces/auth';
+import { Auth } from '../interfaces/auth/auth';
 import { map, Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-import { LoginDto } from '../interfaces/login-dto';
+import { LoginDto } from '../interfaces/auth/login-dto';
 
 @Injectable({
   providedIn: 'root',
