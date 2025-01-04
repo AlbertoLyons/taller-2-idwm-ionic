@@ -76,9 +76,38 @@ export class LoginFormComponent {
       password: formValue.password,
     };
     this.loading = true;
+    this.invalidLogin = false;
+    this.authService.login(loginData).subscribe({
+      next: (response) => {
+        if (response) {
+          if (response.token) {
+            this.localStorageService.setVariable('token', response.token);
+            this.localStorageService.setVariable('user', response);
+            this.router.navigate(['products']);
+            this.loading = false;
+            
+          }
+        } else {
+          this.loading = false;
+          this.invalidLogin = true;
+          console.log('Error on login', response);
+
+        }
+      },
+      error: (error) => {
+        this.loading = false;
+        let e = this.authService.errors;
+        console.log('Error', e);
+        if (e.pop()!.includes('401')) {
+          this.invalidLogin = true;
+        }
+      },
+    });
+  
+    /*
     try{
       const response = await this.authService.login(loginData);
-      if (response.token) {
+      if (response.) {
         this.localStorageService.setVariable('token', response.token);
         this.localStorageService.setVariable('user', response);
         this.router.navigate(['products']);
@@ -97,6 +126,7 @@ export class LoginFormComponent {
       }
       this.authService.errors.push(e.message || 'Unknow error');
     }
+    */
   }
 
   private alphanumericValidator(): ValidatorFn {
