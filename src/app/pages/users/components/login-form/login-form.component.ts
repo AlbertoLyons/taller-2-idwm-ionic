@@ -25,6 +25,7 @@ import {
   IonCardHeader,
   IonCardTitle,
 } from '@ionic/angular/standalone';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -49,7 +50,7 @@ export class LoginFormComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-
+  private readonly localStorageService = inject(LocalStorageService);
   protected readonly loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: [
@@ -64,7 +65,7 @@ export class LoginFormComponent {
   });
   protected loading = false;
 
-  protected onSubmit(): void {
+  protected async onSubmit(): Promise<void> {
     if (this.loginForm.invalid) {
       return;
     }
@@ -74,20 +75,20 @@ export class LoginFormComponent {
       email: formValue.email.trim().toLowerCase(),
       password: formValue.password,
     };
-
     this.loading = true;
-
-    this.authService
-      .login(loginData)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: () => {
-          this.router.navigate(['products']);
-          console.log('Logged in successfully');
-        },
-        error: (error: HttpErrorResponse) =>
-          console.error('Error logging in:', error),
-      });
+    try{
+      const response = await this.authService.login(loginData);
+      if (response.token) {
+        this.localStorageService.setVariable('token', response.token);
+        this.localStorageService.setVariable('user', response);
+        this.router.navigate(['products']);
+      } else {
+        console.log('Error on login', response);
+      }
+    } catch (error: any) {
+      const e = error as HttpErrorResponse;
+      this.authService.errors.push(e.message || 'Unknow error');
+    }
   }
 
   private alphanumericValidator(): ValidatorFn {

@@ -24,6 +24,8 @@ import { Product, ProductData } from 'src/app/interfaces/products/product-data';
 import { ProductService } from 'src/app/services/product.service';
 import { logOutOutline, personOutline, receiptOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 @Component({
   selector: 'app-products-list',
   imports: [
@@ -50,6 +52,8 @@ import { addIcons } from 'ionicons';
 })
 export class ProductsListComponent  implements OnInit {
   private readonly productService = inject(ProductService);
+    private readonly router = inject(Router);
+    private readonly localStorageService = inject(LocalStorageService);
   name: string = '';
   type: string = 'Nada';
   sortOrder: string = 'asc';
@@ -115,14 +119,17 @@ export class ProductsListComponent  implements OnInit {
     this.menuCtrl.open('end');
   }
   openRecepits(): void {
-  
+    this.router.navigate(['receipts']);
   }
   logout(): void {
-    
+    this.localStorageService.removeValue('token');
+    this.localStorageService.removeValue('user');
+    this.router.navigate(['login']);
   }
+  // TODO: Implement delete product
   deleteResult(event: CustomEvent<OverlayEventDetail>) {
     if (event.detail.role === 'confirm') {
-      console.log('Delete');
+      
     }
   }
   lastPage(): void {

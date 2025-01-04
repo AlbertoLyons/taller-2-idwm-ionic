@@ -1,10 +1,10 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
-  const token = authService.getCurrentAuth()?.token;
+  const LLService = inject(LocalStorageService);
+  const token = LLService.getVariable('token');
 
   if (token) {
     req = req.clone({
