@@ -26,6 +26,7 @@ import { logOutOutline, personOutline, receiptOutline, trashOutline } from 'ioni
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-products-list',
   imports: [
@@ -52,8 +53,9 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class ProductsListComponent  implements OnInit {
   private readonly productService = inject(ProductService);
-    private readonly router = inject(Router);
-    private readonly localStorageService = inject(LocalStorageService);
+  private readonly userService = inject(UserService);
+  private readonly router = inject(Router);
+  private readonly localStorageService = inject(LocalStorageService);
   name: string = '';
   type: string = 'Nada';
   sortOrder: string = 'asc';
@@ -129,7 +131,14 @@ export class ProductsListComponent  implements OnInit {
   // TODO: Implement delete product
   deleteResult(event: CustomEvent<OverlayEventDetail>) {
     if (event.detail.role === 'confirm') {
-      
+      let id = this.localStorageService.getVariable('user').id;
+      console.log("ID:", id);
+      try{
+        this.userService.deleteUser(id);
+        this.router.navigate(['login']);
+      } catch (error) {
+        console.log("Error:", error);
+      }
     }
   }
   lastPage(): void {

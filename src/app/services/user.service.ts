@@ -25,7 +25,21 @@ export class UserService {
       return Promise.reject(error);
     }
   }
-
+  async deleteUser(id: number): Promise<any> {
+    try {
+      const response = await firstValueFrom(
+        this.http.delete(this.baseUrl + "/" + id + "/DeleteUser", { responseType: 'text' })
+      );
+      console.log('User deleted successfully:', response); // Maneja el texto aquí si es necesario
+      return Promise.resolve(response);
+    } catch (error) {
+      console.error('There was an error deleting the user:', error);
+      const e = error as HttpErrorResponse;
+      this.errors.push(e.message);
+      return Promise.reject(error);
+    }
+  }
+  
   getErrors(): string[] {
     return this.errors;
   }

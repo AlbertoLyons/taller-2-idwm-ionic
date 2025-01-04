@@ -59,6 +59,11 @@
           <span class="ion-padding-start">Procesando...</span>
           } @else { Iniciar sesión }
         </ion-button>
+        @if (invalidLogin) {
+          <div class="ion-text-center" style="color: var(--ion-color-danger)">
+            Credenciales incorrectas
+          </div>
+        }
       </form>
     </ion-card-content>
   </ion-card>
