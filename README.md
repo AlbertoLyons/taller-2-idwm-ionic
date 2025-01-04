@@ -10,7 +10,7 @@ El proyecto fue construido con [Ionic](https://github.com/ionic-team) en base a 
 
 2. Abrir la consola
 
-3. En la consola, escribir lo siguiente: "git clone https://github.com/AlbertoLyons/taller-2-idwm-ionic-8ecdh5.git" y esperar a que el proyecto se clone
+3. En la consola, escribir lo siguiente: "git clone https://github.com/AlbertoLyons/taller-2-idwm-ionic.git" y esperar a que el proyecto se clone
 
 4. Una vez que termine de clonarse y guardarse en su computadora, debe de dirigirse a la carpeta creada desde la consola utilizando: "cd taller-2-idwm-ionic-8ecdh5"
 
