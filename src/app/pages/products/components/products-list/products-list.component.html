@@ -1,0 +1,128 @@
+<ion-menu menuId="Filters" contentId="main-products">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Filtros</ion-title>
+    </ion-toolbar>
+    <h3 class="ion-text-center" style="padding-left: 5%;">Buscar por nombre</h3>
+    <ion-searchbar (ionInput)="onSearchInput($event)"></ion-searchbar>
+    <h3 class="ion-text-center" style="padding-left: 5%;">Buscar por tipo</h3>
+    <ion-item>
+      <ion-select label="Tipo" placeholder="Seleccione un tipo" (ionChange)="onTypeChange($event)">
+        <ion-select-option value="Nada">Ninguno</ion-select-option>
+        <ion-select-option value="Poleras">Poleras</ion-select-option>
+        <ion-select-option value="Gorros">Gorros</ion-select-option>
+        <ion-select-option value="Juguetería">Juguetería</ion-select-option>
+        <ion-select-option value="Alimentacion">Alimentación</ion-select-option>
+        <ion-select-option value="Libros">Libros</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <h3 class="ion-text-center" style="padding-left: 5%;">Ordenar por precio</h3>
+    <ion-item>
+      <ion-select label="Precio" placeholder="Ordenar" (ionChange)="onSortChange($event)">
+        <ion-select-option value="Nada">Ninguno</ion-select-option>
+        <ion-select-option value="asc">Menor precio</ion-select-option>
+        <ion-select-option value="desc">Mayor precio</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="ion-text-center" style="padding-top: 15%;">
+      <ion-button (click)="searchProducts()">
+        Buscar
+      </ion-button>
+    </div>
+  </ion-header>
+</ion-menu>
+
+<ion-menu side="end" contentId="main-products" menuId="products-options">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Opciones</ion-title>
+    </ion-toolbar>
+    <div class="ion-text-center ion-padding-top">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+         Cerrar sesión
+      </ion-button>
+    </div>
+    <div class="ion-text-center ion-padding-top">
+      <ion-button id="delete-alert" color="danger">
+        <ion-icon name="trash-outline"></ion-icon>
+         Eliminar cuenta
+      </ion-button>
+    </div>
+    <ion-alert
+      trigger="delete-alert"
+      header="Eliminar cuenta"
+      message="¿Estás seguro de que deseas eliminar tu cuenta?"
+      [buttons]="alertButtons"
+      (didDismiss)="deleteResult($event)"
+    ></ion-alert>
+  </ion-header>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="openFilters()">
+        <ion-icon name="reorder-three-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Lista de productos</ion-title>
+    <ion-buttons slot="end" >
+      <ion-button (click)="openRecepits()">
+        <ion-icon name="receipt-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="openOptionsMenu()">
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+  
+
+
+<ion-content id="main-products" class="ion-padding">
+  <ion-card>
+    <ion-card-content>
+      @if (productData.products.length == 0) {
+      <div class="ion-text-center ion-padding">
+        <p>No hay productos disponibles</p>
+      </div>
+      } @else if (productData.products.length > 0) {
+        <div class="table-container">
+          <table class="ion-table">
+              @for (product of productData.products; track product.id) {
+               <ion-card>
+                <div class="ion-text-center">
+                <img src="{{ product.imageUrl }}"
+                     onerror="this.src='assets/icon/no-image.jpg';"
+                />
+                </div>
+                <ion-card-content>
+                  <div class="ion-text-center">
+                    <ion-card-title>{{ product.name }}</ion-card-title>
+                    <p>{{ product.price }} CLP</p>
+                    <p>Tipo: {{ product.type }}</p>
+                    <div style="background-color: #444444; margin-left: 30%; margin-right: 30%; border-radius: 10px;">
+                      <ion-button (click)="addToCart(product)">
+                        <img src="assets/icon/cart.png" style="width: 60%;">
+                      </ion-button>
+                    </div>
+                  </div>
+                </ion-card-content>
+               </ion-card>
+              }
+          </table>  
+        </div>
+      }
+    </ion-card-content>
+  </ion-card>
+  <div class="ion-text-center">
+    <ion-button (click)="lastPage()" style="padding-right: 1%;">
+      Anterior
+    </ion-button>
+    <ion-button (click)="nextPage()" style="padding-left: 1%;">
+      Siguiente
+    </ion-button>
+  </div>
+
+</ion-content>
