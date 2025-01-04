@@ -21,7 +21,7 @@ El proyecto fue construido con [Ionic](https://github.com/ionic-team) en base a 
 7. Para acceder a la página, debe de abrir un navegador y ingresar la dirección "localhost:8100" para poder visualizarla
 ### Importante 
 
-El proyecto se conecta a una API REST de ASP .NET CORE 8 de manera local a través de la dirección "localhost:5225/api". Sin esa API levantada y corriendo, en el proyecto no funcionarán los metodos HTTP GET y POST que realiza. El proyecto de la API REST es el siguiente:
+El proyecto se conecta a una API REST de ASP .NET CORE 8 de manera local a través de la dirección "localhost:5225/api". Sin esa API levantada y corriendo, en el proyecto no funcionarán los metodos HTTP que realiza. El proyecto de la API REST es el siguiente:
 
 - https://github.com/AlbertoLyons/Taller1IDWM.git
 
