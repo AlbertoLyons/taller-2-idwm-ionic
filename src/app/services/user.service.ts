@@ -11,20 +11,6 @@ export class UserService {
   private errors: string[] = [];
   private baseUrl = environment.apiUrl + "/user";
   constructor(private http: HttpClient) { }
-  // Add the get all users (Admin only) method
-  async getUsers(pageNumber: number): Promise<UserData> {
-    try {
-      const response = await firstValueFrom(
-        this.http.get<UserData>(this.baseUrl + "/GetAll?pageNumber=" + pageNumber)
-      );
-      return Promise.resolve(response);
-    } catch (error) {
-      console.log('There was an error obtaining users', error);
-      let e = error as HttpErrorResponse;
-      this.errors.push(e.message);
-      return Promise.reject(error);
-    }
-  }
   // Add the update user (User only) method
   async updateUser(user: UserUpdate, id: number): Promise<UserUpdate> {
     try {
