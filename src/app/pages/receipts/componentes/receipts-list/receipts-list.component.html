@@ -1,3 +1,50 @@
-<p>
-  receipts-list works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Listado de compras</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openProducts()">
+        <ion-icon name="storefront-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content id="main-receipts" class="ion-padding">
+  <ion-card>
+    <ion-card-content>
+      @if (receiptData.receipts.length == 0) {
+      <div class="ion-text-center ion-padding">
+        <p>No hay compras efectuadas</p>
+      </div>
+      } @else if (receiptData.receipts.length > 0) {
+        <div class="table-container">
+          <table class="ion-table">
+              @for (receipt of receipts; track receipt.boughtAt) {
+               <ion-card>
+                <ion-card-content>
+                  <div class="ion-text-center">
+                    <ion-card-title>Fecha de compra: {{ receipt.boughtAt }}</ion-card-title>
+                    <h2>Precio de compra: {{ receipt.totalPrice }}</h2>
+                    <div style="background-color: #444444; margin-left: 30%; margin-right: 30%; border-radius: 10px;">
+                    </div>
+                  </div>
+                  <div class="ion-text-center ion-padding-top">
+                    <ion-card-title>Productos comprados:</ion-card-title>
+                    @for (product of receipt.receiptProducts; track product.name) {
+                    <ion-card-title class="ion-padding-top">{{ product.name }}</ion-card-title>
+                    <p>{{ product.price }} CLP</p>
+                    <p>Tipo: {{ product.type }}</p>
+                    <p>Cantidad comprada: {{ product.quantity }}</p>
+                    }
+                  </div>
+                  
+                </ion-card-content>
+               </ion-card>
+              }
+          </table>  
+        </div>
+      }
+    </ion-card-content>
+  </ion-card>
+</ion-content>

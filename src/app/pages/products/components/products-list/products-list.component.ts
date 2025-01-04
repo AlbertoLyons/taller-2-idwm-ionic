@@ -10,7 +10,6 @@ import {
   IonCardContent,
   IonMenu,
   IonButtons,
-  IonMenuButton,
   IonSearchbar,
   IonItem,
   IonSelect,
@@ -22,7 +21,7 @@ import {
 import type { OverlayEventDetail } from '@ionic/core';
 import { Product, ProductData } from 'src/app/interfaces/products/product-data';
 import { ProductService } from 'src/app/services/product.service';
-import { logOutOutline, personOutline, receiptOutline, trashOutline } from 'ionicons/icons';
+import { logOutOutline, personOutline, receiptOutline, reorderThreeOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -40,7 +39,6 @@ import { UserService } from 'src/app/services/user.service';
     IonCardContent,
     IonMenu,
     IonButtons,
-    IonMenuButton,
     IonSearchbar,
     IonItem,
     IonSelect,
@@ -88,9 +86,11 @@ export class ProductsListComponent  implements OnInit {
       'receipt-outline': receiptOutline,
       'log-out-outline': logOutOutline,
       'trash-outline': trashOutline,
+      "reorder-three-outline": reorderThreeOutline,
     });
   }
   ngOnInit(): void {
+    this.menuCtrl.close('products-options');
     this.loadProducts(1, 'asc', 'Nada','');
   }
   loadProducts(page: number, sortOrder: string, type: string, name: string): void {
@@ -117,10 +117,14 @@ export class ProductsListComponent  implements OnInit {
   addToCart(product: Product): void {
     console.log('Product:', product);
   }
+  openFilters(): void {
+  this.menuCtrl.open('Filters');
+  }
   openOptionsMenu(): void {
-    this.menuCtrl.open('end');
+    this.menuCtrl.open('products-options');
   }
   openRecepits(): void {
+    this.menuCtrl.close('products-options');
     this.router.navigate(['receipts']);
   }
   logout(): void {
@@ -128,7 +132,6 @@ export class ProductsListComponent  implements OnInit {
     this.localStorageService.removeValue('user');
     this.router.navigate(['login']);
   }
-  // TODO: Implement delete product
   deleteResult(event: CustomEvent<OverlayEventDetail>) {
     if (event.detail.role === 'confirm') {
       let id = this.localStorageService.getVariable('user').id;

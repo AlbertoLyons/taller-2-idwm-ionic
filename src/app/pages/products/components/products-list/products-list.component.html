@@ -32,7 +32,7 @@
   </ion-header>
 </ion-menu>
 
-<ion-menu side="end" contentId="main-products">
+<ion-menu side="end" contentId="main-products" menuId="products-options">
   <ion-header>
     <ion-toolbar>
       <ion-title>Opciones</ion-title>
@@ -62,10 +62,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-button (click)="openFilters()">
+        <ion-icon name="reorder-three-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Lista de productos</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" >
       <ion-button (click)="openRecepits()">
         <ion-icon name="receipt-outline"></ion-icon>
       </ion-button>
@@ -90,7 +92,11 @@
           <table class="ion-table">
               @for (product of productData.products; track product.imageUrl) {
                <ion-card>
-                <img src="{{ product.imageUrl }}"/>
+                <div class="ion-text-center">
+                <img src="{{ product.imageUrl }}"
+                     onerror="this.src='assets/icon/no-image.jpg';"
+                />
+                </div>
                 <ion-card-content>
                   <div class="ion-text-center">
                     <ion-card-title>{{ product.name }}</ion-card-title>
