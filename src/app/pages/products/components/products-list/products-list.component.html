@@ -90,7 +90,7 @@
       } @else if (productData.products.length > 0) {
         <div class="table-container">
           <table class="ion-table">
-              @for (product of productData.products; track product.imageUrl) {
+              @for (product of productData.products; track product.id) {
                <ion-card>
                 <div class="ion-text-center">
                 <img src="{{ product.imageUrl }}"

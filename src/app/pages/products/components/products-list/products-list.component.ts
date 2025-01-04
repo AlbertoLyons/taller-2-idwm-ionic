@@ -17,6 +17,7 @@ import {
   IonIcon,
   IonAlert,
   MenuController,
+  AlertController,
 } from '@ionic/angular/standalone';
 import type { OverlayEventDetail } from '@ionic/core';
 import { Product, ProductData } from 'src/app/interfaces/products/product-data';
@@ -26,6 +27,8 @@ import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserService } from 'src/app/services/user.service';
+import { CartService } from 'src/app/services/cart.service';
+import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-products-list',
   imports: [
@@ -53,6 +56,7 @@ export class ProductsListComponent  implements OnInit {
   private readonly productService = inject(ProductService);
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
+  private readonly cartService = inject(CartService);
   private readonly localStorageService = inject(LocalStorageService);
   name: string = '';
   type: string = 'Nada';
@@ -80,7 +84,8 @@ export class ProductsListComponent  implements OnInit {
       role: 'confirm',
     },
   ];
-  constructor(private menuCtrl: MenuController) { 
+
+  constructor(private menuCtrl: MenuController, private alertController: AlertController) { 
     addIcons({
       'person-outline': personOutline,
       'receipt-outline': receiptOutline,
@@ -114,8 +119,17 @@ export class ProductsListComponent  implements OnInit {
   onSortChange(event: any): void {
     this.sortOrder = event.target.value;
   }
-  addToCart(product: Product): void {
-    console.log('Product:', product);
+  async addToCart(product: Product): Promise<void> {
+    this.cartService.addProduct(product.id).then(async (response) => {
+      const alert = await this.alertController.create({
+        header: 'Añadido',
+        message: 'El producto fue añadido al carrito',
+        buttons: ['Cerrar'],
+      });
+      await alert.present();
+    }).catch((error) => {
+      console.log("Error:", error);
+    });
   }
   openFilters(): void {
   this.menuCtrl.open('Filters');

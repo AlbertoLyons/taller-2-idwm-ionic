@@ -101,30 +101,6 @@ export class LoginFormComponent {
         }
       },
     });
-  
-    /*
-    try{
-      const response = await this.authService.login(loginData);
-      if (response.) {
-        this.localStorageService.setVariable('token', response.token);
-        this.localStorageService.setVariable('user', response);
-        this.router.navigate(['products']);
-        this.loading = false;
-        this.invalidLogin = false;
-      } else {
-        this.loading = false;
-        this.invalidLogin = true;
-        console.log('Error on login', response);
-      }
-    } catch (error: any) {
-      this.loading = false;
-      const e = error as HttpErrorResponse;
-      if (e.status === 401) {
-        this.invalidLogin = true;
-      }
-      this.authService.errors.push(e.message || 'Unknow error');
-    }
-    */
   }
 
   private alphanumericValidator(): ValidatorFn {
