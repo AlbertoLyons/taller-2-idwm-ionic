@@ -1,4 +1,4 @@
-# Catedra 2 Frontend
+# Taller 2 IDWM - Ionic
 
 El proyecto fue construido con [Ionic](https://github.com/ionic-team) en base a [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
 
