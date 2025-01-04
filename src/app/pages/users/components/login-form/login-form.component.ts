@@ -11,8 +11,6 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service'; 
 import { LoginDto } from 'src/app/interfaces/auth/login-dto'; 
-import { finalize } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   IonContent,
   IonItem,
@@ -82,7 +80,7 @@ export class LoginFormComponent {
         if (response) {
           if (response.token) {
             this.localStorageService.setVariable('token', response.token);
-            this.localStorageService.setVariable('user', response);
+            this.localStorageService.setVariable('user', JSON.stringify(response));
             this.router.navigate(['products']);
             this.loading = false;
             
