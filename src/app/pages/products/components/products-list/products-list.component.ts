@@ -154,6 +154,8 @@ export class ProductsListComponent  implements OnInit {
       console.log("ID:", id);
       try{
         this.userService.deleteUser(id);
+        this.localStorageService.removeValue('token');
+        this.localStorageService.removeValue('user');
         this.router.navigate(['login']);
       } catch (error) {
         console.log("Error:", error);
