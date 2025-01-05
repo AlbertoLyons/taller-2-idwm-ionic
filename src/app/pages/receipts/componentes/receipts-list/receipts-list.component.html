@@ -21,11 +21,11 @@
         <div class="table-container">
           <table class="ion-table">
               @for (receipt of receipts; track receipt.boughtAt) {
-               <ion-card>
+               <ion-card style="background-color: #353535;">
                 <ion-card-content>
                   <div class="ion-text-center">
                     <ion-card-title>Fecha de compra: {{ receipt.boughtAt }}</ion-card-title>
-                    <h2>Precio de compra: {{ receipt.totalPrice }}</h2>
+                    <h2>Precio de compra: {{ receipt.totalPrice }} CLP</h2>
                     <div style="background-color: #444444; margin-left: 30%; margin-right: 30%; border-radius: 10px;">
                     </div>
                   </div>

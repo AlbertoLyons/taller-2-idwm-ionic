@@ -42,6 +42,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
     IonCardHeader,
     IonCardTitle,
   ],
+  providers: [LocalStorageService, AuthService],
   templateUrl: './login-form.component.html',
 })
 export class LoginFormComponent {

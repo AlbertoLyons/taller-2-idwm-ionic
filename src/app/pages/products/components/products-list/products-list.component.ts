@@ -29,6 +29,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { UserService } from 'src/app/services/user.service';
 import { CartService } from 'src/app/services/cart.service';
 import { HttpResponse } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-products-list',
   imports: [
@@ -49,6 +50,7 @@ import { HttpResponse } from '@angular/common/http';
     IonIcon,
     IonAlert,
   ],
+  providers:[LocalStorageService],
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss'],
 })
@@ -148,7 +150,7 @@ export class ProductsListComponent  implements OnInit {
   }
   deleteResult(event: CustomEvent<OverlayEventDetail>) {
     if (event.detail.role === 'confirm') {
-      let id = this.localStorageService.getVariable('user').id;
+      const id = JSON.parse(this.localStorageService.getVariable('user')).id; 
       console.log("ID:", id);
       try{
         this.userService.deleteUser(id);

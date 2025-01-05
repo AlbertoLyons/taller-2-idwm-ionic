@@ -19,7 +19,6 @@ import { logOutOutline, personOutline, receiptOutline, storefrontOutline, trashO
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-receipts-list',
   imports: [
@@ -34,11 +33,11 @@ import { UserService } from 'src/app/services/user.service';
     IonButtons,
     IonIcon,
   ],
+  providers:[LocalStorageService],
   templateUrl: './receipts-list.component.html',
   styleUrls: ['./receipts-list.component.scss'],
 })
 export class ReceiptsListComponent  implements OnInit {
-  private readonly userService = inject(UserService);
   private readonly receiptService = inject(ReceiptService);
   private readonly router = inject(Router);
   private readonly localStorageService = inject(LocalStorageService);
